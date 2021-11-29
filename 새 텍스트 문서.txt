@@ -28,15 +28,17 @@ AHelloSphere::AHelloSphere()
 	SphereVisual->AttachTo(RootComponent);
 
 	//Construction helper를 사용해 메시에 스태틱 메시를 적용한다.
-	ConstructorHelpers::FObjectFinder<UStaticMesh> SphereAsset(TEXT("/Game/StarterContent/Shapes/Shape_Sphere.Shape_Sphere"));
+	ConstructorHelpers::FObjectFinder<UStaticMesh> SphereVisualAsset(TEXT("/Game/StarterContent/Shapes/Shape_Sphere.Shape_Sphere"));
+	ConstructorHelpers::FObjectFinder<UMaterial> SphereMaterial(TEXT("/Game/StarterContent/Shapes/Shape_Sphere.Shape_Sphere"));
 
 	//메시 에셋이 발견됐다면 메시의 속성을 조절한다.
 
-	if (SphereAsset.Succeeded())
+		if (SphereVisualAsset.Succeeded() && SphereMaterial.Succeeded())
 	{
 
-		SphereVisual->SetStaticMesh(SphereAsset.Object);
-		SphereVisual->SetRelativeLocation(FVector(0.0f, 0.0f, -50.0f));
+		SphereVisual->SetStaticMesh(SphereVisualAsset.Object);
+		SphereVisual->SetMaterial(0, SphereMaterial.Object);
+		SphereVisual->SetRelativeLocation(FVector(0.0f, 0.0f, -40.0f));
 	}
 
 	// 파이어 파티클 시스템 생성하기
